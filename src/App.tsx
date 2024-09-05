@@ -1,60 +1,60 @@
 import { useState, useEffect } from "react";
-import Draggable from "react-draggable";
-import { ResizableBox } from "react-resizable";
+// import Draggable from "react-draggable";
+// import { ResizableBox } from "react-resizable";
 import "react-resizable/css/styles.css";
 
 // Vertical Scale Component
-function VerticalScale({ height }: { height: number }) {
-  const scaleStep = 10; // Every 10px for scale lines
+// function VerticalScale({ height }: { height: number }) {
+//   const scaleStep = 10; // Every 10px for scale lines
 
-  // Generate scale lines based on height
-  const scaleLines = [];
-  for (let i = 0; i <= height; i += scaleStep) {
-    scaleLines.push(i);
-  }
+//   // Generate scale lines based on height
+//   const scaleLines = [];
+//   for (let i = 0; i <= height; i += scaleStep) {
+//     scaleLines.push(i);
+//   }
 
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "30px",
-        height: "100%",
-        backgroundColor: "#ddd",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      {scaleLines.map((line, index) => (
-        <div
-          key={index}
-          style={{
-            position: "absolute",
-            bottom: `${line}px`,
-            width: "100%",
-            borderBottom: "1px solid #000",
-            transform: "translateY(50%)",
-          }}
-        />
-      ))}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "0",
-          left: "0",
-          width: "100%",
-          textAlign: "center",
-          fontSize: "12px",
-          color: "#333",
-        }}
-      >
-        {height}px
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <div
+//       style={{
+//         position: "absolute",
+//         top: 0,
+//         left: 0,
+//         width: "30px",
+//         height: "100%",
+//         backgroundColor: "#ddd",
+//         display: "flex",
+//         flexDirection: "column",
+//         alignItems: "center",
+//       }}
+//     >
+//       {scaleLines.map((line, index) => (
+//         <div
+//           key={index}
+//           style={{
+//             position: "absolute",
+//             bottom: `${line}px`,
+//             width: "100%",
+//             borderBottom: "1px solid #000",
+//             transform: "translateY(50%)",
+//           }}
+//         />
+//       ))}
+//       <div
+//         style={{
+//           position: "absolute",
+//           bottom: "0",
+//           left: "0",
+//           width: "100%",
+//           textAlign: "center",
+//           fontSize: "12px",
+//           color: "#333",
+//         }}
+//       >
+//         {height}px
+//       </div>
+//     </div>
+//   );
+// }
 
 function App() {
   const [boxWidth, setBoxWidth] = useState(100);
@@ -79,43 +79,19 @@ function App() {
   }, []);
 
   return (
-    <Draggable>
-      <div
-        style={{
-          position: "relative",
-          width: boxWidth,
-          height: boxHeight,
-          cursor: "move", // Show hand cursor when dragging
-        }}
-      >
-        <ResizableBox
-          width={boxWidth}
-          height={boxHeight}
-          minConstraints={[50, 50]} // Min size for the box
-          maxConstraints={[500, 500]} // Max size for the box
-          onResize={(_, data) => {
-            setBoxWidth(data.size.width);
-            setBoxHeight(data.size.height);
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              position: "relative",
-              backgroundColor: boxColor,
-              borderRadius: `${borderRadius}px`,
-              boxShadow: boxShadow,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <VerticalScale height={boxHeight} />
-          </div>
-        </ResizableBox>
-      </div>
-    </Draggable>
+    <div
+      style={{
+        width: `${boxWidth}px`,
+        height: `${boxHeight}px`,
+        position: "relative",
+        backgroundColor: boxColor,
+        borderRadius: `${borderRadius}px`,
+        boxShadow: boxShadow,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    />
   );
 }
 
