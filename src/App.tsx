@@ -4,95 +4,73 @@ import { useState, useEffect } from "react";
 import "react-resizable/css/styles.css";
 
 // Vertical Scale Component
-// function VerticalScale({ height }: { height: number }) {
-//   const scaleStep = 10; // Every 10px for scale lines
+function VerticalScale({ height, width }: { height: number; width: number }) {
+  const scaleStep = 10; // Every 10px for scale lines
 
-//   // Generate scale lines based on height
-//   const scaleLines = [];
-//   for (let i = 0; i <= height; i += scaleStep) {
-//     scaleLines.push(i);
-//   }
+  // Generate scale lines based on height
+  const scaleLines = [];
+  for (let i = 0; i <= height; i += scaleStep) {
+    scaleLines.push(i);
+  }
 
-//   return (
-//     <div
-//       style={{
-//         position: "absolute",
-//         top: 0,
-//         left: 0,
-//         width: "30px",
-//         height: "100%",
-//         backgroundColor: "#ddd",
-//         display: "flex",
-//         flexDirection: "column",
-//         alignItems: "center",
-//       }}
-//     >
-//       {scaleLines.map((line, index) => (
-//         <div
-//           key={index}
-//           style={{
-//             position: "absolute",
-//             bottom: `${line}px`,
-//             width: "100%",
-//             borderBottom: "1px solid #000",
-//             transform: "translateY(50%)",
-//           }}
-//         />
-//       ))}
-//       <div
-//         style={{
-//           position: "absolute",
-//           bottom: "0",
-//           left: "0",
-//           width: "100%",
-//           textAlign: "center",
-//           fontSize: "12px",
-//           color: "#333",
-//         }}
-//       >
-//         {height}px
-//       </div>
-//     </div>
-//   );
-// }
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: `${width}px`,
+        height: `${height}px`,
+        backgroundColor: "#ddd",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        overflow: "hidden",
+      }}
+    >
+      {scaleLines.map((line, index) => (
+        <div
+          key={index}
+          style={{
+            position: "absolute",
+            bottom: `${line}px`,
+            width: "100%",
+            borderBottom: "1px solid #000",
+            transform: "translateY(50%)",
+          }}
+        />
+      ))}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "0",
+          left: "0",
+          width: "100%",
+          textAlign: "center",
+          fontSize: "12px",
+          color: "#333",
+        }}
+      >
+        {height}px
+      </div>
+    </div>
+  );
+}
 
 function App() {
   const [boxWidth, setBoxWidth] = useState(100);
   const [boxHeight, setBoxHeight] = useState(100);
-  const [boxColor, setBoxColor] = useState("red");
-  const [borderRadius, setBorderRadius] = useState(0);
-  const [boxShadow, setBoxShadow] = useState("none");
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const width = urlParams.get("width");
     const height = urlParams.get("height");
-    const color = urlParams.get("color");
-    const radius = urlParams.get("borderRadius");
-    const shadow = urlParams.get("boxShadow");
 
     if (width) setBoxWidth(Number(width));
     if (height) setBoxHeight(Number(height));
-    if (color) setBoxColor(color);
-    if (radius) setBorderRadius(Number(radius));
-    if (shadow) setBoxShadow(shadow);
   }, []);
 
-  return (
-    <div
-      style={{
-        width: `${boxWidth}px`,
-        height: `${boxHeight}px`,
-        position: "relative",
-        backgroundColor: boxColor,
-        borderRadius: `${borderRadius}px`,
-        boxShadow: boxShadow,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    />
-  );
+  return <VerticalScale height={boxHeight} width={boxWidth} />;
 }
 
 export default App;
