@@ -93,7 +93,7 @@ function App() {
           height={boxHeight}
           minConstraints={[50, 50]} // Min size for the box
           maxConstraints={[500, 500]} // Max size for the box
-          onResize={(e, data) => {
+          onResize={(_, data) => {
             setBoxWidth(data.size.width);
             setBoxHeight(data.size.height);
           }}
